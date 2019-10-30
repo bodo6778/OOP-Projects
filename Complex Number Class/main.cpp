@@ -1,264 +1,92 @@
 #include <iostream>
 #include <math.h>
 #include <complex>
+#include "Complex.h"
 
 using namespace std;
 
-class Complex{
-    private:
-        double re,im;
-    public:
-        //constructor
-        Complex (double re = 0, double im = 0){
-            this->re = re;
-            this->im = im;
-        }
-
-        //copy constructor
-        Complex (const Complex &c2){
-            re = c2.re;
-            im = c2.im;
-        }
-
-        //getter
-        void get_nr_Complex(){
-            cout<<re<<"+i"<<im<<endl;
-        }
-
-        double get_real(){
-            return re;
-        }
-
-        double get_imaginar(){
-            return im;
-        }
-
-        //setter
-        void set_real(double reSet){
-            re = reSet;
-        }
-
-        void set_imaginar(double imSet){
-            im = imSet;
-        }
-
-        //overload operatori
-        friend ostream & operator << (ostream &out, const Complex &c); 
-        friend istream & operator >> (istream &in,  Complex &c); 
-        friend Complex operator + (Complex const &);
-        friend Complex operator - (Complex const &);
-        friend Complex operator + (Complex const &, Complex const &);
-        friend Complex operator + (double const &, Complex const &);
-        friend Complex operator + (Complex const &, double const &);
-        friend Complex operator - (Complex const &, Complex const &);
-        friend Complex operator - (double const &, Complex const &);
-        friend Complex operator - (Complex const &, double const &);
-        friend Complex operator / (Complex const &, Complex const &);
-        friend Complex operator / (double const &, Complex const &);
-        friend Complex operator / (Complex const &, double const &);
-        friend Complex operator * (Complex const &, Complex const &);
-        friend Complex operator * (double const &, Complex const &);
-        friend Complex operator * (Complex const &, double const &);
-        friend bool operator == (Complex const &, Complex const &);
-        friend bool operator == (double const &, Complex const &);
-        friend bool operator == (Complex const &, double const &);
-        friend bool operator != (Complex const &, Complex const &);
-        friend bool operator != (double const &, Complex const &);
-        friend bool operator != (Complex const &, double const &);
-        friend Complex operator ^ (Complex const &, int const &);
-        friend Complex operator += (Complex const &, double const &);
-        friend Complex operator += (Complex const &, Complex const &);
-        friend Complex operator -= (Complex const &, double const &);
-        friend Complex operator -= (Complex const &, Complex const &);
-        friend Complex operator /= (Complex const &, double const &);
-        friend Complex operator /= (Complex const &, Complex const &);
-        friend Complex operator *= (Complex const &, double const &);
-        friend Complex operator *= (Complex const &, Complex const &);
-        friend double abs (Complex const &);
-        friend std::complex<double> sqrt (Complex const &);
-
-        void citire_numere(){
-            int x;
-            cout<<"Cate numere complexe vor fi citite si afisate: "; cin>>x;
-            const int n = x;
-            
-        }
-
-};
-
-ostream & operator << (ostream &out, const Complex &c) 
-{ 
-    if (c.re != 0)
-        out << c.re;
-    if (c.im > 0)
-        out << "+i" <<c.im;
-    if (c.im < 0)
-        out << "-i" <<-c.im;
-    out << endl;
-    return out; 
-} 
-  
-istream & operator >> (istream &in,  Complex &c) 
-{ 
-    cout << "Parte reala: "; 
-    in >> c.re; 
-    cout << "Parte imaginara: "; 
-    in >> c.im; 
-    return in; 
-} 
-
-Complex operator + (Complex const &c){
-    return Complex(c.re, c.im);
-}
-
-Complex operator - (Complex const &c){
-    return Complex(-c.re, -c.im);
-}
-
-Complex operator + (Complex const &c1, Complex const &c2){
-    return Complex(c1.re + c2.re, c1.im + c2.im);
-}
-
-Complex operator + (double const &c1, Complex const &c2){
-    return Complex(c1 + c2.re, c2.im);
-}
-
-Complex operator + (Complex const &c1, double const &c2){
-    return Complex(c1.re + c2, c1.im);
-}
-
-Complex operator - (Complex const &c1, Complex const &c2){
-    return Complex(c1.re - c2.re, c1.im - c2.im);
-}
-
-Complex operator - (double const &c1, Complex const &c2){
-    return Complex(c1 - c2.re, c2.im);
-}
-
-Complex operator - (Complex const &c1, double const &c2){
-    return Complex(c1.re - c2, c1.im);
-}
-
-Complex operator / (Complex const &c1, Complex const &c2){
-    return Complex((c1.re * c2.re + c1.im * c2.im) / (c2.re * c2.re + c2.im * c2.im), (c2.re * c1.im - c1.re * c2.im) / (c2.re * c2. re + c2.im * c2.im));
-}
-
-Complex operator / (double const &c1, Complex const &c2){
-    return Complex((c1 * c2.re + c1 * c2.im) / (c2.re * c2.re + c2.im * c2.im), (c2.re * c1 - c1 * c2.im) / (c2.re * c2. re + c2.im * c2.im));
-}
-
-Complex operator / (Complex const &c1, double const &c2){
-    return Complex(c1.re / c2, c1.im / c2);
-}
-
-Complex operator * (Complex const &c1, Complex const &c2){
-    return Complex(c1.re * c1.im - c2.re * c2.im, c1.re * c2.im + c1.re * c2.im + c1.im * c2.re);
-}
-
-Complex operator * (double const &c1, Complex const &c2){
-    return Complex(c1 * c2.re, c1 * c2.im);
-}
-
-Complex operator * (Complex const &c1, double const &c2){
-    return Complex(c1.re * c2, c1.im * c2);
-}
-
-bool operator == (Complex const &c1, Complex const &c2){
-    if (c1.re == c2.re && c1.im == c2.im)
-        return true;
-    return false;
-}
-
-bool operator == (double const &c1, Complex const &c2){
-    if (c1 == c2.re && 0 == c2.im)
-        return true;
-    return false;
-}
-
-bool operator == (Complex const &c1, double const &c2){
-    if (c1.re == 0 && c1.im == c2)
-        return true;
-    return false;
-}
-
-bool operator != (Complex const &c1, Complex const &c2){
-    if (c1.re == 0 && c1.im == c2.im)
-        return false;
-    return true;
-}
-
-bool operator != (double const &c1, Complex const &c2){
-    if (c1 == c2.re && 0 == c2.im)
-        return false;
-    return true;
-}
-
-bool operator != (Complex const &c1, double const &c2){
-    if (c1.re == 0 && c1.im == c2)
-        return false;
-    return true;
-}
-
-Complex operator ^ (Complex const &c1, int const &c2){
-    return Complex(pow(c1.re, c2), pow(c1.im, c2));
-}
-
-Complex operator += (Complex const &c1, Complex const &c2){
-    return Complex(c1.re * c1.im - c2.re * c2.im, c1.re * c2.im + c1.re * c2.im + c1.im * c2.re);
-}
-
-Complex operator += (Complex const &c1, double const &c2){
-    return Complex(c1.re * c2, c1.im * c2);
-}
-
-Complex operator -= (Complex const &c1, Complex const &c2){
-    return Complex(c1.re - c2.re, c1.im - c2.im);
-}
-
-Complex operator -= (Complex const &c1, double const &c2){
-    return Complex(c1.re - c2, c1.im);
-}
-
-Complex operator /= (Complex const &c1, Complex const &c2){
-    return Complex((c1.re * c2.re + c1.im * c2.im) / (c2.re * c2.re + c2.im * c2.im), (c2.re * c1.im - c1.re * c2.im) / (c2.re * c2. re + c2.im * c2.im));
-}
-
-Complex operator /= (Complex const &c1, double const &c2){
-    return Complex(c1.re / c2, c1.im / c2);
-}
-
-Complex operator *= (Complex const &c1, Complex const &c2){
-    return Complex(c1.re * c1.im - c2.re * c2.im, c1.re * c2.im + c1.re * c2.im + c1.im * c2.re);
-}
-
-Complex operator *= (Complex const &c1, double const &c2){
-    return Complex(c1.re * c2, c1.im * c2);
-}
-
-double abs (Complex const &c){
-    return sqrt(c.re * c.re + c.im * c.im);
-}
-
-std::complex<double> sqrt (Complex const &c){
-    return sqrt(std::complex<double>(c.re, c.im));
-}
-
-
-
 //ecuatie grad 2
-        void ecuatie_coef_complex(Complex a, Complex b, Complex c){
-            Complex r = b * b - 4 * a * c;
-            Complex z1 = ( -b - r) / 2 * a;
-            Complex z2 = ( -b + r) / 2 * a;
-            cout<<"Radacinile ecuatiei sunt: z1 = "<<z1<<" z2 = "<<z2;
-        }
+void ecuatie_coef_complex(Complex a, Complex b, Complex c){
+    Complex r = b * b - 4 * a * c;
+    Complex z1 = ( -b - r) / 2 * a;
+    Complex z2 = ( -b + r) / 2 * a;
+    cout<<"Radacinile ecuatiei sunt: \nz1 = "<<z1<<"z2 = "<<z2;
+}
 
+void citire_numere(){
+            int x,i;
+            cout<<"Cate numere complexe vor fi citite si afisate: "; cin>>x;
+            Complex *c = new Complex[x+1];
+            for (i = 1; i < x+1; i++){
+                cin>>c[i];
+            }
+            for (i = 1; i < x+1; i++)
+                cout<<c[i];
+        }
 
 int main(){
-    Complex c1(1,2);
-    Complex c2(5,2);
-    Complex c3(3,1);
-    cout<<sqrt(c1);
+    Complex c1(4,0);
+    Complex c2(0,6);
+    Complex c3(0,-2);
+    Complex c4(3,6);
+    Complex c42(3,6);
+    Complex c5(1,-3);
+    int x = 0;
+    cout<<"c1: "<<c1<<"c2: "<<c2<<"c3: "<<c3<<"c4: "<<c4<<"c5: "<<c5;
+    cout<<"Adunare c1 + c2: "<<c1+c2;
+    cout<<"Adunare c1 + 2: "<<c1+2;
+    cout<<"Adunare 2 + c2: "<<2+c2;
+    cout<<"Scadere c1 - c2: "<<c1-c2;
+    cout<<"Scadere c4 - 2: "<<c4-2;
+    cout<<"Scadere 2 - c4: "<<2-c4;
+    cout<<"Impartire c1 / c2: "<<c1/c2;
+    cout<<"Impartire c4 / 2: "<<c4/2;
+    cout<<"Impartire 2 / c4: "<<2/c4;
+    cout<<"Inmultire c1 * c2: "<<c1*c2;
+    cout<<"Inmultire c4 * 2: "<<c4*2;
+    cout<<"Inmultire 2 * c4: "<<2*c4;
+    cout<<"+c4: "<<+c4;
+    cout<<"-c4: "<<-c4;
+    if (c4 == c42)
+        cout<<"Test egalitate c4"<<endl;
+    if (c1 == 4)
+        cout<<"Test egalitate c1 == 4"<<endl;
+    if (4 == c1)
+        cout<<"Test egalitate 4 == c1"<<endl;
+    if (c4 != c3)
+        cout<<"Test neegalitate c4 != c3"<<endl;
+    if (c1 != 5)
+        cout<<"Test neegalitate c4 != 5"<<endl;
+    if (5 != c1)
+        cout<<"Test neegalitate 5 != c4"<<endl;
+    c4 = c4 += c5;
+    cout<<"Adunare c4 += c5: "<<c4;
+    c4 = c42;
+    c4 = c4 += 2;
+    cout<<"Adunare c4 += 2: "<<c4;
+    c4 = c42;
+    c4 = c4 -= c5;
+    cout<<"Scadere c4 -= c5: "<<c4;
+    c4 = c42;
+    c4 = c4 -= 2;
+    cout<<"Scadere c4 -= 2: "<<c4;
+    c4 = c42;
+    c4 = c4 *= c5;
+    cout<<"Inmultire c4 *= c5: "<<c4;
+    c4 = c42;
+    c4 = c4 *= 2;
+    cout<<"Inmultire c4 *= 2: "<<c4;
+    c4 = c42;
+    c4 = c4 /= c5;
+    cout<<"Impartire c4 /= c5: "<<c4;
+    c4 = c42;
+    c4 = c4 /= 2;
+    cout<<"Impartire c4 /= 2: "<<c4;
+    c4 = c42;
+    cout<<"Modul de c4: "<<abs(c4)<<endl;
+    cout<<"Radical de c4 "<<sqrt(c4)<<endl;
+    cout<<"Polinom complex cu coeficientii c1, c2, c2: "<<endl;
     ecuatie_coef_complex(c1,c2,c3);
+    citire_numere();
     return 0;
 }
