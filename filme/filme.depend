@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1578499737 source:d:\programming\c++\poo\filme\main.cpp
+	<iostream>
+	<vector>
+	<string>
+	<unordered_set>
+	<iterator>
+	<tuple>
+	"film.h"
+	"persoana.h"
+
+1578499668 d:\programming\c++\poo\filme\film.h
+	<iostream>
+	<vector>
+	<string>
+	<unordered_set>
+	<iterator>
+	<tuple>
+
+1578499745 d:\programming\c++\poo\filme\persoana.h
+	<iostream>
+	<vector>
+	<string>
+	<unordered_set>
+	<iterator>
+	<tuple>
+
